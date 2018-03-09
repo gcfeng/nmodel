@@ -1,0 +1,19 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["> 5%", "last 2 versions", "not ie <= 8"]
+      },
+      "modules": false,
+      "loose": true
+    }],
+    "stage-0"
+  ],
+  "env": {
+    "commonjs": {
+      "plugins": [
+        ["transform-es2015-modules-commonjs", { "loose": true }]
+      ]
+    }
+  }
+}
