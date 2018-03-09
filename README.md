@@ -32,7 +32,7 @@ const m = model({
   namespace: 'uniqueName', // must be unique in the app
   state: { data: null }, // redux data
   effects: {
-    // redux-model inject some api to effect
+    // nmodel inject some api to effect
     someFunc ({ update, dispatch, put, getModelState, getState }, params) {
       update({ data: params });
     },
