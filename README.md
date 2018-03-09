@@ -2,6 +2,10 @@ NModel
 ===========
 Lightweight front-end framework based on [redux](https://github.com/reactjs/redux) and [redux-thunk](https://github.com/gaearon/redux-thunk). (Inspired by [dva](https://github.com/dvajs/dva)).
 
+[![build status](https://img.shields.io/travis/gcfeng/nmodel/master.svg?style=flat-square)](https://travis-ci.org/gcfeng/nmodel)
+[![npm version](https://img.shields.io/npm/v/nmodel.svg?style=flat-square)](https://www.npmjs.com/package/nmodel)
+[![npm downloads](https://img.shields.io/npm/dm/nmodel.svg?style=flat-square)](https://www.npmjs.com/package/nmodel)
+
 ```js
 npm install nmodel --save
 ```
