@@ -10,6 +10,8 @@ Lightweight front-end framework based on [redux](https://github.com/reactjs/redu
 npm install nmodel --save
 ```
 
+Checkout [examples](https://github.com/gcfeng/react-template)
+
 ## Features
 - **Easy to use**
 - **Support HRM**

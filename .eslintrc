@@ -2,7 +2,8 @@
 {
   "extends": "eslint-config-airbnb",
   "globals": {
-    "expect": true
+    "expect": true,
+    "window": true
   },
   "rules": {
     "space-before-function-paren": "off",
