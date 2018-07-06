@@ -12,7 +12,7 @@ export default (store) => {
 };
 
 export function model (modelObject) {
-  invariant(_store && Object.keys(_store), 'please call "redux-model/createStore" to init store first');
+  invariant(_store && Object.keys(_store), 'please call "nmodel/createStore" to init store first');
   invariant(modelObject && Object.keys(modelObject), 'model should be a plain object');
   invariant(modelObject.namespace, 'namespace should be specific');
   let _model = _models.find(m => m.namespace === modelObject.namespace);
