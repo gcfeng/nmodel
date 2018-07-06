@@ -1,14 +1,21 @@
+function isObject (val) {
+  return val !== null && typeof val === 'object' && Array.isArray(val) === false;
+}
+
 /**
  * @param {any} obj The object to inspect.
  * @returns {boolean} True if the argument appears to be a plain object.
  */
-export default function isPlainObject(obj) {
-  if (typeof obj !== 'object' || obj === null) return false;
+export default function isPlainObject (obj) {
+  if (!isObject(obj)) return false;
 
-  let proto = obj;
-  while (Object.getPrototypeOf(proto) !== null) {
-    proto = Object.getPrototypeOf(proto);
-  }
+  // Modified the constructor
+  const ctor = obj.constructor;
+  if (typeof ctor !== 'function') return false;
 
-  return Object.getPrototypeOf(obj) === proto;
+  // Modified the prototype
+  const prot = ctor.prototype;
+  if (!isObject(prot)) return false;
+
+  return prot.hasOwnProperty('isPrototypeOf');
 }

@@ -1,6 +1,6 @@
 import { createStore, model } from '../src/index';
 
-describe('redux-model', () => {
+describe('nmodel', () => {
   let store;
 
   beforeEach(() => {

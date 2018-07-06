@@ -6,7 +6,7 @@ import createModel from './createModel';
 export default (initialState = {}, middlewares = [], enhancers = []) => {
   middlewares = [thunk].concat(middlewares);
 
-  /* enhancers */
+  /* Enhancers */
   if (process.env.NODE_ENV === 'development') {
     const devToolsExtension = window.devToolsExtension;
     if (typeof devToolsExtension === 'function') {
@@ -14,7 +14,7 @@ export default (initialState = {}, middlewares = [], enhancers = []) => {
     }
   }
 
-  /* hot module replacement */
+  /* Hot module replacement */
   const store = createReduxStore(
     makeRootReducer(),
     initialState,

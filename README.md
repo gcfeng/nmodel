@@ -18,14 +18,14 @@ Checkout [examples](https://github.com/gcfeng/react-template)
 - **Support load model dynamically**
 
 ## Usage
-1. create redux store.
+**1. Create redux store**
 ```js
 // store.js
 import { createStore } from 'nmodel';
 const store = createStore();
 ```
 
-2. define a model
+**2. Define a model**
 ```js
 // model.js
 import { model } from 'nmodel';
@@ -54,7 +54,7 @@ const m = model({
 });
 ```
 
-3. For React, connect to components
+**3. Connect to components**
 ```js
 // container.js
 import { connect } from 'react-redux';

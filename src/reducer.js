@@ -22,7 +22,8 @@ export function getReducer (model = {}) {
       if (handler) {
         return handler(state, action);
       }
-      return action && action.type === prefixed(namespace, '@@update') ? action.state : state;
+      const actionType = (action && action.type) || '';
+      return actionType.indexOf(prefixed(namespace, '@@update')) >= 0 ? action.state : state;
     });
   }
   return (state = initialState, action) => {
@@ -30,7 +31,8 @@ export function getReducer (model = {}) {
     if (handler) {
       return handler(state, action);
     }
-    return action && action.type === prefixed(namespace, '@@update') ? action.state : state;
+    const actionType = (action && action.type) || '';
+    return actionType.indexOf(prefixed(namespace, '@@update')) >= 0 ? action.state : state;
   };
 }
 

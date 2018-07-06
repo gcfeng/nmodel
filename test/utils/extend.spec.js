@@ -12,5 +12,6 @@ describe('utils/extend', () => {
       x: [1, 2],
       y: { y1: { y2: 2, y3: 3 } },
     })).toEqual({ x: [1, 2, 3], y: { y1: { y2: 2, y3: 3 } } });
+    expect(extend([], [1, 2, 3])).toEqual([1, 2, 3]);
   });
 });

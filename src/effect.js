@@ -13,6 +13,9 @@ export function getEffects (store, model = {}) {
 
   return effects;
 
+  /**
+   * Inject methods to effect
+   */
   function wrapEffect (handler, key) {
     return (...args) => {
       return (dispatch, getState) => {
@@ -22,7 +25,7 @@ export function getEffects (store, model = {}) {
           dispatch,
           getState,
           getModelState: getModelState(getState),
-          update,
+          update: update(key),
         });
         let ret;
         try {
@@ -50,7 +53,9 @@ export function getEffects (store, model = {}) {
     };
   }
 
-  // dispatch an action within namespace
+  /**
+   * Dispatch an action within model
+   */
   function put (dispatch) {
     return (action) => {
       invariant(action && action.type, `${model.name}: action should be a plain object`);
@@ -59,59 +64,65 @@ export function getEffects (store, model = {}) {
     };
   }
 
-  // direct update state, support key path
-  // - update('one.two[0].a', 1)
-  function update (keyPath, value) {
-    const listReg = /^([^[]+)\[(\d+)\]$/;
-    const globalState = store.getState();
-    let currentState = extend({}, globalState[model.namespace]);
+  /**
+   * Direct update state, support updating by key path
+   * e.g.
+   *  update('one.two[0].a', 1)
+   *  update({ state: 'otherValue' })
+   */
+  function update (effectName) {
+    return (keyPath, value) => {
+      const listReg = /^([^[]+)\[(\d+)\]$/;
+      const globalState = store.getState();
+      let currentState = extend({}, globalState[model.namespace]);
 
-    if (typeof keyPath === 'string') {
-      if (!keyPath) return false;
-      let statePart = currentState;
-      const keys = keyPath.split('.');
-      for (let key = keys.shift(); key; key = keys.shift()) {
-        const match = listReg.exec(key);
-        if (match) { // Array
-          key = match[1];
-          const index = parseInt(match[2], 10);
-          if (hasOwnProperty.call(statePart, key) && Array.isArray(statePart[key])) { // update
-            if (!keys.length) {
-              statePart[key][index] = value;
-            } else if (statePart[key][index]) {
-              statePart = statePart[key][index];
+      if (typeof keyPath === 'string') {
+        if (!keyPath) return false;
+        let statePart = currentState;
+        const keys = keyPath.split('.');
+        for (let key = keys.shift(); key; key = keys.shift()) {
+          const match = listReg.exec(key);
+          if (match) { // Array
+            key = match[1];
+            const index = parseInt(match[2], 10);
+            if (hasOwnProperty.call(statePart, key) && Array.isArray(statePart[key])) { // update
+              if (!keys.length) {
+                statePart[key][index] = value;
+              } else if (statePart[key][index]) {
+                statePart = statePart[key][index];
+              } else {
+                statePart[key][index] = {};
+                statePart = statePart[key][index];
+              }
+            } else if (!keys.length) {
+              statePart[key] = [value];
             } else {
+              statePart[key] = [];
               statePart[key][index] = {};
               statePart = statePart[key][index];
             }
+          } else if (hasOwnProperty.call(statePart, key)) {
+            if (!keys.length) {
+              statePart[key] = value;
+            } else {
+              statePart = statePart[key];
+            }
           } else if (!keys.length) {
-            statePart[key] = [value];
-          } else {
-            statePart[key] = [];
-            statePart[key][index] = {};
-            statePart = statePart[key][index];
-          }
-        } else if (hasOwnProperty.call(statePart, key)) {
-          if (!keys.length) {
             statePart[key] = value;
           } else {
+            statePart[key] = {};
             statePart = statePart[key];
           }
-        } else if (!keys.length) {
-          statePart[key] = value;
-        } else {
-          statePart[key] = {};
-          statePart = statePart[key];
         }
+      } else {
+        currentState = Object.assign({}, currentState, keyPath);
       }
-    } else {
-      currentState = Object.assign({}, currentState, keyPath);
-    }
 
-    return store.dispatch({
-      type: prefixed(model.namespace, '@@update'),
-      state: currentState,
-    });
+      return store.dispatch({
+        type: prefixed(model.namespace, `@@update_${effectName || ''}`),
+        state: currentState,
+      });
+    };
   }
 
   // Get current model state
@@ -121,7 +132,7 @@ export function getEffects (store, model = {}) {
     };
   }
 
-  // report error
+  // Report error
   function reportError (err) {
     if (typeof model.onError === 'function') {
       model.onError(err);
