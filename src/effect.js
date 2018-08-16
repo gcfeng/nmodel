@@ -32,12 +32,13 @@ export function getEffects (store, model = {}) {
           ret = handler(...args);
           if (ret.then) { // promise
             ret.catch(res => {
-              res.extra = {
+              const resWithExtra = extend({}, res);
+              resWithExtra.extra = extend({}, {
                 args,
                 effect: prefixed(model.namespace, key),
                 state: store.getState()[model.namespace],
-              };
-              reportError(res);
+              });
+              reportError(resWithExtra);
             });
           }
         } catch (e) {
