@@ -30,7 +30,7 @@ export function getEffects (store, model = {}) {
         let ret;
         try {
           ret = handler(...args);
-          if (ret.then) { // promise
+          if (ret && typeof ret.then === 'function') { // promise
             ret.catch(res => {
               const resWithExtra = extend({}, res);
               resWithExtra.extra = extend({}, {
