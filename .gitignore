@@ -4,5 +4,6 @@ coverage
 lib
 dist
 es
+types
 .idea
 .vscode

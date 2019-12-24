@@ -10,13 +10,24 @@ export default {
 
   devtool: NODE_ENV === 'production' ? false : 'source-map',
 
-  entry: [
-    './src/index',
-  ],
+  entry: ['./src/index'],
+
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
 
   module: {
     rules: [
-      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ },
+      {
+        test: /\.ts(x?)$/,
+        use: ['babel-loader', 'ts-loader'],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.js$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/,
+      },
     ],
   },
 
