@@ -1,31 +1,8 @@
 {
-  "extends": "eslint-config-airbnb",
-  "globals": {
-    "expect": true,
-    "window": true
-  },
-  "rules": {
-    "space-before-function-paren": "off",
-    "import/prefer-default-export": "off",
-    "arrow-parens": 0,
-    "arrow-body-style": 0,
-    "no-param-reassign": 0,
-    "no-underscore-dangle": 0,
-    "no-continue": 0,
-    "prefer-destructuring": 0,
-    "function-paren-newline": 0,
-    "padded-blocks": 0,
-    "no-use-before-define": [2, "nofunc"],
-    "no-unused-expressions": 0,
-    "global-require": 0,
-    "no-prototype-builtins": 0
-  },
-  "overrides": [
-    {
-      "files": "test/**/*.js",
-      "env": {
-        "jest": true
-      }
-    }
-  ]
+  "extends": [
+    "react-app",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"]
 }

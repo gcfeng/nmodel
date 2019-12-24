@@ -1,4 +1,4 @@
-function isObject (val) {
+function isObject(val: any) {
   return val !== null && typeof val === 'object' && Array.isArray(val) === false;
 }
 
@@ -6,7 +6,7 @@ function isObject (val) {
  * @param {any} obj The object to inspect.
  * @returns {boolean} True if the argument appears to be a plain object.
  */
-export default function isPlainObject (obj) {
+export default function isPlainObject(obj: any) {
   if (!isObject(obj)) return false;
 
   // Modified the constructor
