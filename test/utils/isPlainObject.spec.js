@@ -2,7 +2,7 @@ import isPlainObject from '../../src/utils/isPlainObject';
 
 describe('utils/isPlainObject', () => {
   it('returns true only if plain object', () => {
-    function Test () {
+    function Test() {
       this.prop = 1;
     }
 

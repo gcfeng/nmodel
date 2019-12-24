@@ -1,6 +1,6 @@
 NModel
 ===========
-Lightweight elm-style wrapper for redux.
+Lightweight wrapper for redux and redux-thunk.
 
 [![build status](https://img.shields.io/travis/gcfeng/nmodel/master.svg?style=flat-square)](https://travis-ci.org/gcfeng/nmodel)
 [![npm version](https://img.shields.io/npm/v/nmodel.svg?style=flat-square)](https://www.npmjs.com/package/nmodel)
@@ -9,7 +9,7 @@ Lightweight elm-style wrapper for redux.
 ## Install
 
 ```js
-npm install nmodel --save
+npm install --save nmodel
 ```
 
 or use yarn:
@@ -22,8 +22,8 @@ Checkout [examples](https://github.com/gcfeng/react-template)
 
 ## Features
 - **Easy to use**
-- **Support HRM**
 - **Support load model dynamically**
+- **Less API**
 
 ## Usage
 **1. Create redux store**
@@ -81,7 +81,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SomeComponent);
 ```
 
 ## Model
-A model will be initialized with a object which contains:
+Model is just a part of redux store. A model will be initialized with a object which contains:
 - **namespace**: Must be unique in app, used to ensure the model is unique.
 - **state**: State data.
 - **effects**: The same with redux's actions, but nmodel will inject some methods to update state more easily.
@@ -89,8 +89,8 @@ A model will be initialized with a object which contains:
 - **onError**: Triggered when effect throws error or rejects a promise
 
 methods injected to effect:
-- **update([state] | [keyPath, value])**: Update redux state. The method support update state with key-path, such as `update('obj.someKey', 'value')`.
-- **put(action)**: Dispatch an action. The action handler is defined in `reducers`, so `action.type` doesn't need to add prefix.
+- **update(state)**: Update model state.
+- **put(action)**: Dispatch an action inside model. The action handler is defined in model's `reducers`, so `action.type` doesn't need to add prefix.
 - **dispatch(action)**: Dispatch an action. `action.type` have to be prefixed with `${model.namespace}/`
 - **getState**: Get store's whole state
 - **getModelState**: Get the model state

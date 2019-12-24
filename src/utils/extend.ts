@@ -3,7 +3,7 @@ import isPlainObject from './isPlainObject';
 /**
  * Deep copy
  */
-export default function extend (...args) {
+export default function extend(...args: any[]) {
   let target = args[0] || {};
   if (typeof target !== 'object') {
     target = {};
