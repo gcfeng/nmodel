@@ -103,4 +103,4 @@ Create the redux store.
 Define a model.
 
 ## License
-[MIT](https://tldrlegal.com/license/mit-license)
+[MIT](LICENSE)
