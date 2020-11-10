@@ -1,6 +1,6 @@
 {
   "name": "nmodel",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Lightweight wrapper for redux and redux-thunk",
   "main": "lib/nmodel.js",
   "module": "es/nmodel.js",
