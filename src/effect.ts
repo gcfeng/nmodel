@@ -52,7 +52,6 @@ export function getEffects(store: Store, model: Model) {
             state: store.getState()[model.namespace],
           };
           reportError(e);
-          invariant(false, `${model.namespace}: action failed with error ${e}`);
         }
         return ret;
       };
