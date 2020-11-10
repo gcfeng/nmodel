@@ -52,6 +52,7 @@ export function getEffects(store: Store, model: Model) {
             state: store.getState()[model.namespace],
           };
           reportError(e);
+          invariant(false, `${model.namespace}: action failed with error ${e}`);
         }
         return ret;
       };
@@ -81,8 +82,8 @@ export function getEffects(store: Store, model: Model) {
   function update(effectName: string) {
     return (state: State) => {
       const globalState = store.getState();
-      let currentState = extend({}, globalState[model.namespace]);
-      currentState = Object.assign({}, currentState, state);
+      let currentState = globalState[model.namespace];
+      currentState = Object.assign({}, currentState, extend({}, state));
 
       return store.dispatch({
         type: prefixed(model.namespace, `@@update_${effectName || ''}`),
