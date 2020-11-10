@@ -57,7 +57,7 @@ describe('nmodel', () => {
     });
     expect(store.getState().someModel).toBeDefined();
 
-    store.dispatch(m.effects.updateStatus());
+    store.dispatch(m.effects.updateStatus(false));
     expect(store.getState().someModel.isFetching).toBeFalsy();
 
     store.dispatch(m.effects.updateData('1'));
